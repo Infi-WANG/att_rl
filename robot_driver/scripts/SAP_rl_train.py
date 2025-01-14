@@ -1,3 +1,7 @@
+#sudo chmod 777 /dev/ttyUSB0
+#rosrun robotiq_2f_gripper_control Robotiq2FGripperRtuNode.py /dev/ttyUSB0
+#robotiq_2f_gripper_control Robotiq2FGripperSimpleController.py
+
 import argparse
 
 from matplotlib import pyplot as plt
