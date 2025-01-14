@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: robot_gazebo
+    relative_path: urdf/ur.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/ur_robot_gazebo.srdf
+  CONFIG:
+    author_name: robot_moveit_config
+    author_email: zyj@zyj.com
+    generated_timestamp: 1720774080

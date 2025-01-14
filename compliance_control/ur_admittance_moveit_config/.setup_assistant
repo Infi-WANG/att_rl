@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: admittance_ur_description
+    relative_path: urdf/ur.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/ur_admittance.srdf
+  CONFIG:
+    author_name: zangyujia
+    author_email: zangyujia@zju.edu.cn
+    generated_timestamp: 1720662587

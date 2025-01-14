@@ -1,0 +1,20 @@
+<launch> 
+  <!-- joy node -->
+  <node pkg="joy" type="joy_node" name="joy_driver" respawn="true" output="screen">
+    <param name="dev" type="string" value="/dev/input/js0" />
+    <param name="default_trig_val" value="true" />
+    <param name="deadzone" value="0.12" />
+    <param name="dev_ff" type="string" value="/dev/input/event20" />
+  </node>
+
+  <node pkg="joy_ur" type="joy_ur_node" name="joy_ur_node" respawn="true" output="screen">
+    <rosparam command="load" file="$(find joy_ur)/config/config.yaml"/>
+  </node>
+
+  <node pkg="joy_ur" type="position_control.py" name="position_control">
+  </node>
+  
+  <node pkg="joy_ur" type="wrench_filter.py" name="wrench_filter">
+  </node>
+
+</launch> 

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+
+    <include file="$(find admittance_controller)/launch/admittance_gazebo.launch"> 
+        <arg name="load_robot_model_for_admittance"   value="true"/>
+        <arg name="use_feedback_velocity"	          value="false"/>
+        <arg name="auto_start_admittance"	          value="false"/>
+        <arg name="use_position_control"              value="true"/>           <!-- in gazebo we use position controller -->
+    </include>
+
+    <include file="$(find robot_gazebo)/launch/gazebo.launch"> </include>
+    
+    <include file="$(find robot_moveit_config)/launch/mydemo.launch"> </include>
+
+    <include file="$(find joy_ur)/launch/joy_node.launch"> </include>
+    
+</launch>

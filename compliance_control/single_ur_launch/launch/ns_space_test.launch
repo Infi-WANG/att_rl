@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find example_organization_ur_launch)/launch/ur5e_bringup.launch" ns="left_arm"/>
+</launch>

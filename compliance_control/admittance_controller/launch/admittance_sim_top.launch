@@ -1,0 +1,12 @@
+<launch>
+
+  <include file="$(find admittance_controller)/launch/load_robot_description.launch" ns="admittance"/>
+  <include file="$(find admittance_controller)/launch/ur5e_simulation_admittance_controller.launch"/>
+
+  <include file="$(find admittance_controller)/launch/load_robot_description.launch"/>
+  <include file="$(find ur5e_sim)/launch/ur_control_sim.launch" />  
+  <!-- this launch file uses the self-make sim file, not the gazebo one! -->
+
+</launch>
+
+`

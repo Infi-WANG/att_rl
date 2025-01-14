@@ -1,0 +1,13 @@
+#goal definition
+string command
+moveit_msgs/RobotTrajectory jmove_robot_trajectory
+float64 lmove_length_mm
+float64 lmove_time_ms
+bool record_ft_data
+---
+#result definition
+bool execution_result
+string result_info
+---
+#feedback
+float64 progress_rate

@@ -1,0 +1,10 @@
+#goal definition
+string command
+---
+#result definition
+bool execution_result
+string result_info
+---
+#feedback
+float64 progress_rate
+string cur_state

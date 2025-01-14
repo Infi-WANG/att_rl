@@ -1,0 +1,4 @@
+frame_id,seq,sec,nsec,     ,pos_joint1,pos_joint2,pos_joint2,pos_joint4,pos_joint5,pos_joint6,     ,vel_joint1,vel_joint2,vel_joint3,vel_joint4,vel_joint5,vel_joint6
+
+,0,1647573481,796960234, ,0,0,0,0,0,0, ,0.225,0,0,0,0,0,
+,1,1647573489,796960234, ,1.8,0,0,0,0,0, ,0,0,0,0,0,0,

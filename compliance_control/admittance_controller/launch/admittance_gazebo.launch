@@ -1,0 +1,38 @@
+<launch>
+
+  <!-- Note: this is not a top launch file, using gazebo simulation should include this file -->
+  <!-- 调试时先运行UR驱动以及moveit包
+              roslaunch admittance_controller load_robot_description.launch ns:=admittance  不然会报错(系统bug) 一般运行时仅需更改下列配置中load_robot_model为true
+  
+  /admittance_controller/set_equilibrium_point_service 设置平衡点
+  /admittance_controller/admittance_controller_activation_service  开启柔顺性控制
+  /admittance_controller/virtual_force_control_activation_service 开启虚拟力控制
+  /admittance_controller/set_VF_service 设置虚拟力大小 VECTOR
+
+  -->
+  <!--	Arguments	 -->
+
+  <arg name="load_robot_model_for_admittance"   default="true"/>
+  <arg name="use_feedback_velocity"	            default="false"/>
+  <arg name="auto_start_admittance"	            default="false"/>
+  <arg name="use_position_control"              default="false"/>
+
+  <arg name="topic_names_file"				    default="$(find admittance_controller)/config/ur5e_topic_names.yaml"/>
+  <arg name="admittance_parameters_file"  default="$(find admittance_controller)/config/ur5e_parameters.yaml"/>
+
+  <!--  Load the URDF, SRDF and other .yaml configuration files on the ROS Param Server  -->
+  <include if="$(arg load_robot_model_for_admittance)" file="$(find ur_admittance_moveit_config)/launch/planning_context.launch" ns="admittance">
+    <arg name="load_robot_description" value="true"/>
+  </include>
+
+  <!--  Admittance Controller Node  -->
+  
+  <node pkg="admittance_controller" name="admittance_controller_Node" type="admittance_controller_Node" output="screen">
+    <param name="use_feedback_velocity"   value="$(arg use_feedback_velocity)"/>
+    <param name="auto_start_admittance"   value="$(arg auto_start_admittance)"/>
+    <param name="use_position_control"    value="$(arg use_position_control)"/>
+    <rosparam file="$(arg topic_names_file)"            command="load"/>
+    <rosparam file="$(arg admittance_parameters_file)"  command="load"/>
+	</node>
+
+</launch>

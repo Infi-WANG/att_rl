@@ -1,0 +1,28 @@
+<launch>
+  <!--	Arguments	 -->
+  
+  <arg name="load_robot_model"      		  default="false"/> 
+
+  <arg name="auto_start_admittance"	      default="false"/>
+
+  <arg name="topic_names_file"				    default="$(find admittance_controller)/config/ur5e_topic_names.yaml"/>
+  <arg name="admittance_parameters_file"  default="$(find admittance_controller)/config/ur5e_parameters.yaml"/>
+
+  <include file="$(find ur_robotiq_moveit_config)/launch/move_group.launch">
+    <arg name="allow_trajectory_execution" value="true"/>
+    <arg name="fake_execution" value="false"/>
+    <arg name="info" value="true"/>
+    <arg name="debug" value="false"/>
+    <arg name="pipeline" value="ompl"/>
+    <arg name="load_robot_description" value="false"/>
+  </include>
+
+  <!--  Admittance Controller Node  -->
+  <node pkg="admittance_controller" name="admittance_controller_Node" type="admittance_controller_Node" output="screen">
+    <param name="auto_start_admittance"   value="$(arg auto_start_admittance)"/>
+    <rosparam file="$(arg topic_names_file)"            command="load"/>
+    <rosparam file="$(arg admittance_parameters_file)"  command="load"/>
+	</node>
+
+</launch>
+

@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="peg">
+  <xacro:macro name="peg_link_macro" params="parent_link">
+      <link name="peg_link">
+      <inertial>
+        <origin
+          xyz="1.1137E-20 0.029745 9.1286E-18"
+          rpy="0 0 0" />
+        <mass
+          value="0.90318" />
+        <inertia
+          ixx="0.0017526"
+          ixy="9.6929E-20"
+          ixz="1.9764E-19"
+          iyy="0.0022219"
+          iyz="2.3759E-19"
+          izz="0.0017526" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://robot_gazebo/meshes/EFF.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="1 1 1 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://robot_gazebo/meshes/EFF.STL" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="peg_joint" type="revolute">
+      <parent link="${parent_link}"/>
+      <child link="peg_link"/>
+      <axis xyz="0 0 1"/>
+      <limit lower="-1" upper="1" velocity="50.0" effort="1000.0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <dynamics damping="0" friction="0"/>
+    </joint> 
+
+    <transmission name="peg_joint_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="peg_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="peg_joint_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+
+    <gazebo reference="peg_joint">
+      <provideFeedback>true</provideFeedback>
+    </gazebo>
+    <gazebo>
+        <plugin name="ft_sensor" filename="libgazebo_ros_ft_sensor.so">
+            <updateRate>1000.0</updateRate>
+            <topicName>wrench_origin</topicName>
+            <jointName>peg_joint</jointName>
+        </plugin>
+    </gazebo>
+
+    <gazebo reference="peg_link">
+      <mu1>500</mu1>
+      <mu2>500</mu2>
+      <kp>1e5</kp>
+      <kd>1e3</kd>
+    </gazebo>
+
+  </xacro:macro>
+</robot>
+

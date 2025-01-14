@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="ur5e_robotiq_robot">
+  
+   <!-- name parameters -->
+   <xacro:arg name="prefix" default=""/>
+
+   <!-- arm parameters -->
+   <xacro:arg name="joint_limit_params" default="$(find ur_description)/config/ur5e/joint_limits.yaml"/>
+   <xacro:arg name="kinematics_params" default="$(find single_ur_launch)/etc/ur5e-1.yaml"/>
+   <xacro:arg name="physical_params" default="$(find ur_description)/config/ur5e/physical_parameters.yaml"/>
+   <xacro:arg name="visual_params" default="$(find ur_description)/config/ur5e/visual_parameters.yaml"/>
+   <!-- legal values:
+         - hardware_interface/PositionJointInterface
+         - hardware_interface/VelocityJointInterface
+         - hardware_interface/EffortJointInterface
+   -->
+   <xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/>
+   <xacro:arg name="safety_limits" default="false"/>
+   <xacro:arg name="safety_pos_margin" default="0.15"/>
+   <xacro:arg name="safety_k_position" default="20"/>
+
+  <!--xacro:include filename="$(find ur_description)/urdf/inc/ur5e_macro.xacro"/-->
+  <!-- xacro:ur5e_robot prefix="$(arg prefix)" /-->
+
+   <!-- arm -->
+   <xacro:include filename="$(find ur_description)/urdf/inc/ur_macro.xacro"/>
+   <xacro:ur_robot
+     prefix="$(arg prefix)"
+     joint_limits_parameters_file="$(arg joint_limit_params)"
+     kinematics_parameters_file="$(arg kinematics_params)"
+     physical_parameters_file="$(arg physical_params)"
+     visual_parameters_file="$(arg visual_params)"
+     transmission_hw_interface="$(arg transmission_hw_interface)"
+     safety_limits="$(arg safety_limits)"
+     safety_pos_margin="$(arg safety_pos_margin)"
+     safety_k_position="$(arg safety_k_position)"/>
+
+  
+  <!-- define the TCP -->
+  <xacro:macro name="TCP_frame" params="prefix">
+    <link name="${prefix}TCP"/>
+    <joint name="${prefix}tool0-TCP" type="fixed">
+      <!-- default toolframe: X+ left, Y+ up, Z+ front -->
+      <origin xyz="0 0 0.16" rpy="0 0 0"/>
+      <parent link="${prefix}tool0"/>
+      <child link="${prefix}TCP"/>
+    </joint>
+  </xacro:macro>
+  <xacro:TCP_frame prefix="$(arg prefix)"/>
+
+
+</robot>

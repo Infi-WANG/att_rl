@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="HOLE">
+<xacro:macro name="hole_link_macro" params="parent_link x y z">
+    <link
+      name="hole_link">
+      <inertial>
+        <origin
+          xyz="0 0.04 -1.6234E-18"
+          rpy="${pi/2} 0 0" />
+        <mass
+          value="0.072822" />
+        <inertia
+          ixx="4.8128E-05"
+          ixy="-1.9826E-37"
+          ixz="-1.1667E-38"
+          iyy="1.8579E-05"
+          iyz="-2.495E-38"
+          izz="4.8128E-05" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="${pi/2} 0 0" />
+        <geometry>
+          <mesh
+            filename="package://robot_gazebo/meshes/hole_link.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="1 1 1 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="${pi/2} 0 0" />
+        <geometry>
+          <mesh
+            filename="package://robot_gazebo/meshes/hole_link.STL" />
+        </geometry>
+      </collision>
+    </link>
+    
+    <joint name="joint_name" type="fixed">
+      <parent link="${parent_link}"/>
+      <child link="hole_link"/>
+      <origin xyz="${x} ${y} ${z}" rpy="0.0 0.0 0.0"/>
+    </joint>
+
+    <gazebo reference="hole_link">
+      <mu1>500</mu1>
+      <mu2>500</mu2>
+      <kp>1e5</kp>
+      <kd>1e3</kd>
+    </gazebo>
+      
+    <gazebo reference="hole_link">
+      <selfCollide>true</selfCollide>
+      <isStatic>true</isStatic>
+    </gazebo>
+
+</xacro:macro>
+
+</robot>
