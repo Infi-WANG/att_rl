@@ -253,4 +253,3 @@ if __name__ == '__main__':
     # key_points = torch.FloatTensor(key_points).to(cfg.device)
     # draw_figure(out_file_name, num_images, key_points.to("cpu"), image_batch.to("cpu"), image_predict.to("cpu"))
     print("f")
-    
